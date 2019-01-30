@@ -25,6 +25,7 @@ export class AccountPage implements OnInit {
   messages: any;
   title: string;
   userId: string;
+  token: string;
 
   constructor(
     public alertController: AlertController,
@@ -41,6 +42,9 @@ export class AccountPage implements OnInit {
   }
 
   ngOnInit() {
+    this.authService.getToken().then(token => {
+      this.token = token;
+    });
     this.authService.retrieveToken().then(decodedToken => {
       this.title = decodedToken.firstname + ' ' + decodedToken.lastname;
       this.userId = decodedToken.id;
@@ -52,7 +56,7 @@ export class AccountPage implements OnInit {
    *  @description Obtains cards catalog, initializes selector prompt with it and displays alert selector
    */
   newAccount() {
-    this.accountService.getCardsCatalog().subscribe(
+    this.accountService.getCardsCatalog(this.token).subscribe(
       (cards) => {
         this.cards = cards.response ? cards.response.type_cards : null;
         this.alertInputOptionsInit();
@@ -130,8 +134,9 @@ export class AccountPage implements OnInit {
    * @description Obtains user's accounts from api
    */
   private getUserAccounts(): void {
-    this.accountService.getUserAccounts().subscribe(
+    this.accountService.getUserAccounts(this.token).subscribe(
       (accounts) => {
+        console.log(accounts);
         this.accounts = accounts;
       },
       (error) => {
@@ -157,9 +162,10 @@ export class AccountPage implements OnInit {
       name: card.name
     };
 
-    this.accountService.requestNewAccount(requestNewAccountData).subscribe(
+    this.accountService.requestNewAccount(requestNewAccountData, this.token).subscribe(
       (res) => {
-        this.toastMessage(this.messages.account.accountRequestSuccess, SUCCESS);
+        this.toastMessage(this.messages.account.accountRequestSuccess, SUCCESS, 5000);
+        this.getUserAccounts();
       },
       (error) => {
         if (error.status === 0) {

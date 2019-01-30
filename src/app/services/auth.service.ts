@@ -71,6 +71,18 @@ export class AuthService {
   }
 
   /**
+   * @description Gets token
+   * @returns Original jwt token Promise
+   */
+  async getToken() {
+    return this.storage.get(TOKEN).then(token => {
+      if (token !== null) {
+        return token;
+      }
+    });
+  }
+
+  /**
    * @description Saves token info. to storage for future usage
    * @param token Token to save to storage
    */

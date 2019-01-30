@@ -14,11 +14,12 @@ export class AccountService {
 
   /**
    * @description Gets current user's account list
+   * @param token Original jwt token
    * @returns Account list observable
    */
-  getUserAccounts(): Observable<any> {
+  getUserAccounts(token: string): Observable<any> {
     const httpOptions = {
-      headers: new HttpHeaders({ 'content-type': 'application/json', 'x-access-token': API.xAccessToken })
+      headers: new HttpHeaders({ 'content-type': 'application/json', 'x-access-token': token })
     };
 
     return this.http.get<any>(API.uri + 'accounts', httpOptions);
@@ -26,11 +27,12 @@ export class AccountService {
 
   /**
    * @description Gets cards catalog from api
+   * @param token Original jwt token
    * @returns Catalog observable
    */
-  getCardsCatalog(): Observable<any> {
+  getCardsCatalog(token: string): Observable<any> {
     const httpOptions = {
-      headers: new HttpHeaders({ 'content-type': 'application/json', 'x-access-token': API.xAccessToken })
+      headers: new HttpHeaders({ 'content-type': 'application/json', 'x-access-token': token })
     };
 
     return this.http.get<any>(API.uri + 'catalogs/cards', httpOptions);
@@ -39,10 +41,11 @@ export class AccountService {
   /**
    * @description Sends new account request to api
    * @param accountRequest Account request data
+   * @param token Original jwt token
    */
-  requestNewAccount(accountRequest: AccountRequest): Observable<any> {
+  requestNewAccount(accountRequest: AccountRequest, token: string): Observable<any> {
     const httpOptions = {
-      headers: new HttpHeaders({ 'content-type': 'application/json', 'x-access-token': API.xAccessToken })
+      headers: new HttpHeaders({ 'content-type': 'application/json', 'x-access-token': token })
     };
 
     return this.http.post<any>(API.uri + 'accounts', accountRequest, httpOptions);
