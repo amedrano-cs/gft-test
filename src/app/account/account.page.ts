@@ -136,7 +136,6 @@ export class AccountPage implements OnInit {
   private getUserAccounts(): void {
     this.accountService.getUserAccounts(this.token).subscribe(
       (accounts) => {
-        console.log(accounts);
         this.accounts = accounts;
       },
       (error) => {
