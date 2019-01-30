@@ -9,3 +9,27 @@
 @import '~@ionic/angular/css/text-alignment.css';
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
+
+.footer {
+  background-color: #203e7e;
+  color: white;
+  font-size: 0.5rem;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  z-index: inherit;
+}
+
+.footer-icon {
+  margin-bottom: -0.2rem;
+  margin-left: 0.5rem;
+}
+
+.page-footer {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  width: 100%;
+  z-index: inherit;
+}

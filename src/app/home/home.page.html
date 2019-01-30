@@ -1,12 +1,61 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
+  <ion-img src="assets/images/banner.jpg" class="bg-image shadow"></ion-img>
+  <div class="main-card">
+    <h4>{{ labels.home.title }}</h4>
+  </div>
+  <div padding>
+    <!-- Segment buttons with text and click listeners -->
+    <ion-segment [(ngModel)]="auth">
+      <ion-segment-button value="login">
+        <ion-label>{{ labels.home.loginLabel }}</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="register">
+        <ion-label>{{ labels.home.registerLabel}}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
+  <div [ngSwitch]="auth">
+    <form>
+      <!-- Login form -->
+      <ion-list *ngSwitchCase="'login'">
+        <ion-item-group>
+          <ion-item>
+            <ion-input type="email" [(ngModel)]="email" [placeholder]="labels.home.emailLabel" name="email" required
+              clearInput></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input type="password" [(ngModel)]="password" [placeholder]="labels.home.passwordLabel" name="password"
+              required clearInput></ion-input>
+          </ion-item>
+          <ion-button class="auth-button" type="submit" (click)="login()" [disabled]="!email || !password" color="primary"
+            expand="block" size="large">{{ labels.home.loginButtonLabel | uppercase }}</ion-button>
+        </ion-item-group>
+      </ion-list>
+      <!-- Registration form -->
+      <ion-list *ngSwitchCase="'register'">
+        <ion-item-group>
+          <ion-item>
+            <ion-input type="email" [(ngModel)]="email" [placeholder]="labels.home.emailLabel" name="email" required
+              clearInput></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input type="text" [(ngModel)]="firstName" [placeholder]="labels.home.firstNameLabel" name="firstname"
+              required clearInput></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input type="text" [(ngModel)]="lastName" [placeholder]="labels.home.lastNameLabel" name="lastname"
+              required clearInput></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input type="password" [(ngModel)]="password" [placeholder]="labels.home.passwordLabel" name="password"
+              required clearInput></ion-input>
+          </ion-item>
+          <ion-button class="auth-button" type="submit" (click)="register()" [disabled]="!email || !password || !firstName || !lastName"
+            color="primary" expand="block" size="large">{{ labels.home.registerButtonLabel | uppercase }}</ion-button>
+        </ion-item-group>
+      </ion-list>
+    </form>
+
+  </div>
 </ion-content>
