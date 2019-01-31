@@ -1,4 +1,4 @@
-import { AccountRequest } from '../models/account-request';
+import { AccountRequest, AccountResponse } from '../models/account-request';
 import { AccountService } from '../services/account.service';
 import { AuthService } from '../services/auth.service';
 import { Component, OnInit } from '@angular/core';
@@ -17,15 +17,15 @@ const SUCCESS = 'success';
   styleUrls: ['./account.page.scss'],
 })
 export class AccountPage implements OnInit {
-  accounts: [];
+  accounts: AccountResponse[];
   alertInputOptions: any[];
   cards: TypeCardInterface[];
   errors: any;
   labels: any;
   messages: any;
   title: string;
-  userId: string;
   token: string;
+  userId: string;
 
   constructor(
     public alertController: AlertController,
@@ -44,12 +44,12 @@ export class AccountPage implements OnInit {
   ngOnInit() {
     this.authService.getToken().then(token => {
       this.token = token;
+      this.getUserAccounts();
     });
     this.authService.retrieveToken().then(decodedToken => {
       this.title = decodedToken.firstname + ' ' + decodedToken.lastname;
       this.userId = decodedToken.id;
     });
-    this.getUserAccounts();
   }
 
   /**
@@ -135,8 +135,8 @@ export class AccountPage implements OnInit {
    */
   private getUserAccounts(): void {
     this.accountService.getUserAccounts(this.token).subscribe(
-      (accounts) => {
-        this.accounts = accounts;
+      (accountsResponse) => {
+        this.accounts = accountsResponse.response;
       },
       (error) => {
         if (error.status === 0) {

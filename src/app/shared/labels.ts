@@ -1,11 +1,14 @@
 export const LABELS = {
   'account': {
+    'balance': 'Balance',
+    'deposits': 'Depósitos',
     'emptyAccountsLabel': 'No hay cuentas asociadas',
     'myAccountsLabel': 'Mis cuentas',
     'requestAccountButtonLabel': 'Solicitar',
     'requestAccountCancelButtonLabel': 'Cancel',
     'requestAccountLabel': 'Solicitar cuenta',
-    'requestNewAccountLabel': 'Solicita una nueva cuenta'
+    'requestNewAccountLabel': 'Solicita una nueva cuenta',
+    'withdrawals': 'Retiros'
   },
   'home': {
     'emailLabel': 'Email',

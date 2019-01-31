@@ -19,7 +19,7 @@ export class AccountService {
    */
   getUserAccounts(token: string): Observable<any> {
     const httpOptions = {
-      headers: new HttpHeaders({ 'content-type': 'application/json', 'x-access-token': token })
+      headers: new HttpHeaders({ 'content-type': 'application/json', 'x-access-token': token})
     };
 
     return this.http.get<any>(API.uri + 'accounts', httpOptions);

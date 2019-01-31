@@ -12,13 +12,25 @@
 <ion-content padding>
   <ion-list>
     <ion-list-header>{{ labels.account.myAccountsLabel | uppercase }}</ion-list-header>
-    <ng-container *ngIf="accounts?.length > 0; else elseTemplate">
-      <ion-item *ngFor="let account of accounts">
-        <ion-label>
-          <h2>{{ account.type }}</h2>
-          <p>{{ account.name }}</p>
-        </ion-label>
-      </ion-item>
+    <ng-container *ngIf="accounts.length > 0; else elseTemplate">
+      <ion-card *ngFor="let account of accounts">
+        <ion-card-header>
+          <ion-card-title>{{ account.type }}</ion-card-title>
+          <ion-card-subtitle>{{ account.name }}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-item>
+          <ion-label>{{ labels.account.deposits }}</ion-label>
+          <ion-badge color="success" slot="end">{{ account.deposits }}</ion-badge>
+        </ion-item>
+        <ion-item>
+          <ion-label>{{ labels.account.withdrawals }}</ion-label>
+          <ion-badge color="medium" slot="end">{{ account.withdrawals }}</ion-badge>
+        </ion-item>
+        <ion-item>
+          <ion-label>{{ labels.account.balance }}</ion-label>
+          <ion-badge slot="end">{{ account.balance }}</ion-badge>
+        </ion-item>
+      </ion-card>
     </ng-container>
     <ng-template #elseTemplate>
       <ion-item>
